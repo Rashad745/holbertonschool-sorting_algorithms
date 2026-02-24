@@ -4,12 +4,13 @@
  * swap_ints - swaps two integers in an array
  * @a: pointer to first integer
  * @b: pointer to second integer
+ * Return: void
  */
 void swap_ints(int *a, int *b)
 {
     int temp;
 
-    if (a == b || *a == *b) /* only swap if values are different */
+    if (a == b || *a == *b) /* do not swap identical elements */
         return;
 
     temp = *a;
@@ -18,12 +19,12 @@ void swap_ints(int *a, int *b)
 }
 
 /**
- * lomuto_partition - Lomuto partition scheme for Quick sort
+ * lomuto_partition - Lomuto partition scheme
  * @array: array to sort
  * @low: starting index
  * @high: ending index
- * @size: size of the array (for print_array)
- * Return: final pivot index
+ * @size: array size (for print_array)
+ * Return: pivot index
  */
 int lomuto_partition(int *array, int low, int high, size_t size)
 {
@@ -54,11 +55,11 @@ int lomuto_partition(int *array, int low, int high, size_t size)
 }
 
 /**
- * quick_sort_recursive - recursive Quick sort
+ * quick_sort_recursive - recursive quicksort function
  * @array: array to sort
  * @low: starting index
  * @high: ending index
- * @size: size of the array (for print_array)
+ * @size: array size (for print_array)
  */
 void quick_sort_recursive(int *array, int low, int high, size_t size)
 {
@@ -74,9 +75,9 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 
 /**
  * quick_sort - sorts an array of integers in ascending order
- *              using Quick sort algorithm
+ *              using the Quick sort algorithm (Lomuto)
  * @array: array to sort
- * @size: size of the array
+ * @size: array size
  */
 void quick_sort(int *array, size_t size)
 {
