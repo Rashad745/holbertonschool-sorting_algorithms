@@ -2,28 +2,33 @@
 
 /**
  * swap_ints - swaps two integers in an array
- * @a: pointer to first integer
- * @b: pointer to second integer
+ * Prints the array only if a real swap occurs
+ * @a: first integer
+ * @b: second integer
+ * @array: array being sorted
+ * @size: size of the array
  */
-void swap_ints(int *a, int *b)
+void swap_ints(int *a, int *b, int *array, size_t size)
 {
     int temp;
 
-    if (a == b)
+    if (*a == *b) /* skip swapping identical values */
         return;
 
     temp = *a;
     *a = *b;
     *b = temp;
+
+    print_array(array, size);
 }
 
 /**
- * lomuto_partition - Lomuto partition scheme for Quick sort
- * @array: array to sort
+ * lomuto_partition - Lomuto partition scheme
+ * @array: array to partition
  * @low: starting index
- * @high: ending index
- * @size: size of the array (for print_array)
- * Return: final pivot index
+ * @high: ending index (pivot)
+ * @size: size of the array
+ * Return: index of the pivot after partition
  */
 int lomuto_partition(int *array, int low, int high, size_t size)
 {
@@ -36,29 +41,21 @@ int lomuto_partition(int *array, int low, int high, size_t size)
         if (array[j] < pivot)
         {
             i++;
-            if (i != j)
-            {
-                swap_ints(&array[i], &array[j]);
-                print_array(array, size);
-            }
+            swap_ints(&array[i], &array[j], array, size);
         }
     }
 
-    if ((i + 1) != high)
-    {
-        swap_ints(&array[i + 1], &array[high]);
-        print_array(array, size);
-    }
+    swap_ints(&array[i + 1], &array[high], array, size);
 
     return (i + 1);
 }
 
 /**
- * quick_sort_recursive - recursive Quick sort
+ * quick_sort_recursive - recursive quicksort
  * @array: array to sort
  * @low: starting index
  * @high: ending index
- * @size: size of the array (for print_array)
+ * @size: size of the array
  */
 void quick_sort_recursive(int *array, int low, int high, size_t size)
 {
@@ -74,7 +71,7 @@ void quick_sort_recursive(int *array, int low, int high, size_t size)
 
 /**
  * quick_sort - sorts an array of integers in ascending order
- *              using Quick sort algorithm
+ * using the Quick sort algorithm
  * @array: array to sort
  * @size: size of the array
  */
