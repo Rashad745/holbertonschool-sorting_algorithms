@@ -9,7 +9,7 @@ void swap_ints(int *a, int *b)
 {
     int temp;
 
-    if (a == b)
+    if (a == b || *a == *b) /* only swap if values are different */
         return;
 
     temp = *a;
