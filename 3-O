@@ -1,3 +1,5 @@
+cat > 3-O << 'EOF'
 O(n log n)
 O(n log n)
 O(n^2)
+EOF
