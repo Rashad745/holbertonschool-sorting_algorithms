@@ -1,58 +1,80 @@
-cat > 3-quick_sort.c << 'EOF'
-#include "sort.h"
+k#include "sort.h"
 
-void swap(int *a, int *b)
+/**
+ * swap_ints - Massivdəki iki tam ədədin yerini dəyişir.
+ * @array: Ümumi massiv (çap üçün lazımdır).
+ * @size: Massivin ölçüsü.
+ * @a: Birinci ədədin ünvanı.
+ * @b: İkinci ədədin ünvanı.
+ */
+void swap_ints(int *array, size_t size, int *a, int *b)
 {
-    int tmp = *a;
-    *a = *b;
-    *b = tmp;
+	if (*a != *b)
+	{
+		int tmp = *a;
+
+		*a = *b;
+		*b = tmp;
+		print_array(array, size);
+	}
 }
 
-int lomuto_partition(int *array, int lo, int hi, size_t size)
+/**
+ * lomuto_partition - Lomuto sxemi ilə massivi bölür.
+ * @array: Bölünəcək massiv.
+ * @size: Massivin ölçüsü.
+ * @left: Alt-massivin başlanğıc indeksi.
+ * @right: Alt-massivin son indeksi (pivot buradadır).
+ *
+ * Return: Pivotun sonuncu indeksini qaytarır.
+ */
+int lomuto_partition(int *array, size_t size, int left, int right)
 {
-    int pivot = array[hi];
-    int i = lo - 1;
-    int j;
+	int *pivot = array + right;
+	int i, j;
 
-    for (j = lo; j < hi; j++)
-    {
-        if (array[j] <= pivot)
-        {
-            i++;
-            if (i != j)
-            {
-                swap(&array[i], &array[j]);
-                print_array(array, size);
-            }
-        }
-    }
+	for (i = j = left; j < right; j++)
+	{
+		if (array[j] < *pivot)
+		{
+			swap_ints(array, size, array + i, array + j);
+			i++;
+		}
+	}
 
-    if (i + 1 != hi)
-    {
-        swap(&array[i + 1], &array[hi]);
-        print_array(array, size);
-    }
+	swap_ints(array, size, array + i, pivot);
 
-    return (i + 1);
+	return (i);
 }
 
-void quick_sort_recursive(int *array, int lo, int hi, size_t size)
+/**
+ * lomuto_sort - Rekursiv olaraq Quick Sort tətbiq edir.
+ * @array: Massiv.
+ * @size: Massivin tam ölçüsü.
+ * @left: Alt-massivin sol sərhədi.
+ * @right: Alt-massivin sağ sərhədi.
+ */
+void lomuto_sort(int *array, size_t size, int left, int right)
 {
-    int pivot_idx;
+	int part;
 
-    if (lo < hi)
-    {
-        pivot_idx = lomuto_partition(array, lo, hi, size);
-        quick_sort_recursive(array, lo, pivot_idx - 1, size);
-        quick_sort_recursive(array, pivot_idx + 1, hi, size);
-    }
+	if (right - left > 0)
+	{
+		part = lomuto_partition(array, size, left, right);
+		lomuto_sort(array, size, left, part - 1);
+		lomuto_sort(array, size, part + 1, right);
+	}
 }
 
+/**
+ * quick_sort - Quick Sort alqoritmi ilə massivi sıralayır.
+ * @array: Sıralanacaq massiv.
+ * @size: Massivin ölçüsü.
+ */
 void quick_sort(int *array, size_t size)
 {
-    if (!array || size < 2)
-        return;
+	if (array == NULL || size < 2)
+		return;
 
-    quick_sort_recursive(array, 0, (int)size - 1, size);
+	lomuto_sort(array, size, 0, size - 1);
 }
-EOF
