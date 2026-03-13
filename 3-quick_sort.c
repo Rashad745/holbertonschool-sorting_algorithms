@@ -1,8 +1,8 @@
-k#include "sort.h"
+#include "sort.h"
 
 /**
  * swap_ints - Massivdəki iki tam ədədin yerini dəyişir.
- * @array: Ümumi massiv (çap üçün lazımdır).
+ * @array: Ümumi massiv.
  * @size: Massivin ölçüsü.
  * @a: Birinci ədədin ünvanı.
  * @b: İkinci ədədin ünvanı.
@@ -24,7 +24,7 @@ void swap_ints(int *array, size_t size, int *a, int *b)
  * @array: Bölünəcək massiv.
  * @size: Massivin ölçüsü.
  * @left: Alt-massivin başlanğıc indeksi.
- * @right: Alt-massivin son indeksi (pivot buradadır).
+ * @right: Alt-massivin son indeksi.
  *
  * Return: Pivotun sonuncu indeksini qaytarır.
  */
